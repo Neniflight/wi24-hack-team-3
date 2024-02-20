@@ -141,7 +141,7 @@ router.put('updateUser/:id', async(req, res)=>{
 
     let user = await User.findById(userId);
 
-    if(!updatedUser){
+    if(!user){
       return res.status(404).send({message: 'User not found'});//Error handling
   }
     for (let field in updateFields){
