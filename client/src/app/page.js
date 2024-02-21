@@ -3,6 +3,8 @@ import styles from './page.module.css'
 
 export default function Home() {
   return (
-    <h1>Welcome</h1>
+    <main className={styles.main}>
+      <h1>Welcome to Cultivate</h1>
+    </main>
   )
 }
