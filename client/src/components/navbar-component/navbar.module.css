@@ -25,7 +25,6 @@
     */
     color: #14452F;
     font-size: 35px;
-    margin-left: 25px;
     text-decoration: none;
     font-weight: bold;
   }
@@ -42,3 +41,21 @@
     margin-right: 16px;
     text-decoration: none;
   }
+
+.calendar {
+  filter: invert(19%) sepia(19%) saturate(1428%) hue-rotate(101deg) brightness(100%) contrast(92%);
+  width: 65px;
+  height: 65px;
+  border-radius: 0%;
+  overflow: hidden;
+
+  margin-left: 1100px;
+ }
+
+ .logo {
+  filter: invert(19%) sepia(19%) saturate(1428%) hue-rotate(101deg) brightness(100%) contrast(92%);
+  width: 50px;
+  height: 50px;
+  border-radius: 0%;
+  overflow: hidden;
+ }
