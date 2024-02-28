@@ -3,9 +3,8 @@ import Link from 'next/link';
 import styles from './navbar.module.css';
 import Image from 'next/image';
 
-//import MySVGCalendar from 'client/public/cal.png'
-//console.log(MySVGCalendar);
-//import calendar from 'next.svg'; 
+import cal from '/images/cal.png';
+import hand from '/images/logo.png';
 
 const NavBar = () => {
     return (
@@ -16,21 +15,26 @@ const NavBar = () => {
                 <Link href="/home">cultivate</Link>
             </div>
 
-            <div>
-                <a href = "/calendar">
+            <div className={styles.nav_buttons}>
                 <div>
-                    <img src={'/images/cal.png'} className={styles.calendar}></img>   
-                </div>
-            </a>
-            </div>
-
-            <div>
-                <a href = "/home">
+                    <a href = "/calendar">
                     <div>
-                        <img src={'/images/logo.png'} className={styles.logo}></img>
+                        <Image src={cal} className={styles.calendar}></Image>   
+                        {/* <img src={'/images/cal.png'} className={styles.calendar}></img>    */}
                     </div>
                 </a>
+                </div>
+
+                <div>
+                    <a href = "/home">
+                        <div>
+                            {/* <img src={hand} className={styles.logo}></img> */}
+                            <Image src={'/images/logo.png'} className={styles.logo}></Image>
+                        </div>
+                    </a>
+                </div>
             </div>
+            
         </div>
     )
 }
