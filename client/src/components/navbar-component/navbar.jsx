@@ -3,8 +3,8 @@ import Link from 'next/link';
 import styles from './navbar.module.css';
 import Image from 'next/image';
 
-import cal from '/images/cal.png';
-import hand from '/images/logo.png';
+import cal from 'public/images/cal.png';
+import hand from 'public/images/logo.png';
 
 const NavBar = () => {
     return (
@@ -19,8 +19,7 @@ const NavBar = () => {
                 <div>
                     <a href = "/calendar">
                     <div>
-                        <Image src={cal} className={styles.calendar}></Image>   
-                        {/* <img src={'/images/cal.png'} className={styles.calendar}></img>    */}
+                        <Image src={cal} className={styles.calendar}></Image>
                     </div>
                 </a>
                 </div>
@@ -28,8 +27,8 @@ const NavBar = () => {
                 <div>
                     <a href = "/home">
                         <div>
-                            {/* <img src={hand} className={styles.logo}></img> */}
-                            <Image src={'/images/logo.png'} className={styles.logo}></Image>
+                            <Image src={hand} className={styles.logo}></Image>
+                            {/* <img src={'/images/logo.png'} className={styles.logo}></img> */}
                         </div>
                     </a>
                 </div>
