@@ -10,6 +10,17 @@ const UserSchema = mongoose.Schema(
             type: String,
             required: true,  
         },
+        firstName : {
+            type: String,
+            required: true,
+        },
+        lastName : {
+            type: String,
+            required: true,
+        },
+        bio : {
+            type : String,
+        },
         password : {
             type: String,
             required: true,
@@ -19,22 +30,5 @@ const UserSchema = mongoose.Schema(
 
 const User = mongoose.model('User', UserSchema); 
 
-const EntrySchema = mongoose.Schema(
-    {
-        userId: {
-            type: mongoose.Schema.Types.ObjectId, 
-            required: true,
-        },
-        entryText: {
-            type: String,
-            required: true,
-        },
-    },
-    {
-        timestamps: true,
-    }
-);
 
-const Entry = mongoose.model('Entry', EntrySchema);
-
-module.exports = {Entry, User};
+module.exports = {User};
