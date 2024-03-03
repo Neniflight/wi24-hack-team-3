@@ -1,0 +1,29 @@
+.button {
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    display: flex;
+    width: 700px;
+    height: 60px;
+    padding: 8px 0px 9px 0px;
+    justify-content: center;
+    align-items: center;    
+  }
+
+  .signUp{
+    background-color: #14452F;
+  }
+  
+  .logIn{
+    background-color: #678F7E;
+  }
+
+  .button.signUp:hover {
+    background-color: #255630;
+  }
+
+  .button.logIn:hover{
+    background-color: #789F8F;
+  }
