@@ -1,7 +1,7 @@
 .button {
     color: white;
     border: none;
-    border-radius: 20px;
+    border-radius: 100px;
     font-size: 30px;
     cursor: pointer;
     display: flex;
