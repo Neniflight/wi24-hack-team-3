@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 import React from 'react';
-import hand from 'public/images/hand.png';
+import logo from 'public/images/logo.png';
 import Button from '@/components/button-component/button';
 import buttonStyle from '@/components/button-component/button.module.css';
 import Divider from '@/components/divider-component/divider';
@@ -21,7 +21,7 @@ export default function Home() {
 
         </div>
         <div className={styles.imageContainer}>
-            <Image src={hand} className={styles.logo}></Image>
+            <Image src={logo} className={styles.logo}></Image>
             <div className={styles.quoteContainer}>
                 <p><strong>"cultivate your garden"</strong></p>
                 <p className={styles.author}>- Voltaire, Candide</p>
