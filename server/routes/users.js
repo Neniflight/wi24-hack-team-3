@@ -119,7 +119,7 @@ router.put('/user/update/:id', async(req, res)=>{
 });
 
 //Delete an user
-router.delete('/user/:id', async(req, res)=>{
+router.delete('/:id', async(req, res)=>{
   try {
     const userId = req.params.id;
     const deletedUser = await User.findByIdAndDelete(userId);
@@ -134,7 +134,7 @@ router.delete('/user/:id', async(req, res)=>{
 });
 
 //Update an user with new username, email, or password
-router.put('updateUser/:id', async(req, res)=>{
+router.put('/:id', async(req, res)=>{
   try {
     const userId = req.params.id;
     const updateFields = req.body; //Array of specific field(s) in user
