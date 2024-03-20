@@ -1,0 +1,88 @@
+.modal{
+    background-color: #FFFDF2;
+    padding: 200px;
+    height: 700px;
+    border-radius: 5px;
+}
+
+.sign{
+    margin: auto;
+    background: rgb(255, 255, 255);
+    width: 50%;
+    padding: 20px;
+}
+
+
+.signup{
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 30px;
+    cursor: pointer;
+    display: flex;
+    width: 700px;
+    height: 60px;
+    padding: 8px 0px 9px 0px;
+    justify-content: center;
+    align-items: center;
+    background-color: #14452F;
+}
+
+.signup:hover {
+    background-color: #255630;
+} 
+
+.logIn{
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 30px;
+    cursor: pointer;
+    display: flex;
+    width: 700px;
+    height: 60px;
+    padding: 8px 0px 9px 0px;
+    justify-content: center;
+    align-items: center;
+    background-color: #678F7E;
+}
+
+.logIn:hover{
+    background-color: #789F8F;
+  }
+
+.createAcc{
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 30px;
+    cursor: pointer;
+    display: flex;
+    width: 700px;
+    height: 60px;
+    padding: 8px 0px 9px 0px;
+    justify-content: center;
+    align-items: center;
+    background-color: #255630;
+    color: #FFFDF2;
+}
+
+.logInAcc{
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 30px;
+    cursor: pointer;
+    display: flex;
+    width: 700px;
+    height: 60px;
+    padding: 8px 0px 9px 0px;
+    justify-content: center;
+    align-items: center;
+    background-color: #255630;
+    color: #FFFDF2;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.5); 
+  }
