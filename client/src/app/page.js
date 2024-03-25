@@ -23,50 +23,54 @@ export default function Home() {
                 <Button className={buttonStyle.logIn}>Log In</Button>
             </div>  */}
             <br></br>
-            <div>
-            <Popup trigger=
-                {<button className={popUpStyle.signup}> Sign up </button>} 
-                modal nested>
-                {
-                    close => (
-                        // <div className={popUpStyle.overlay}>
-                        <div className={popUpStyle.modal}>
-                            <div className={popUpStyle.sign}>
-                                Sign up for an account
+        <div className={popUpStyle.flexContainer}>
+                <Popup trigger=
+                    {<button className={popUpStyle.signup}> Sign up </button>} 
+                    modal nested>
+                    {
+                        close => (
+                            <div className={popUpStyle.modal}>
+                                <Image src={logo} className={popUpStyle.logo}></Image>
+                                <div className={popUpStyle.sign}>
+                                
+                                    create an account
+                                </div>
+                                <div>
+                                    <button className={popUpStyle.createAcc} onClick=
+                                        {() => close()}>
+                                            create account
+                                    </button>
+                                </div>
                             </div>
-                            <div>
-                                <button className={popUpStyle.createAcc} onClick=
-                                    {() => close()}>
-                                        create account
-                                </button>
-                            </div>
-                        </div>
-                        // </div>
-                    )
-                }
-            </Popup>
+                        )
+                    }
+                </Popup>
         </div>
         <Divider text="already have an account?"/>
-        <div>
-            <Popup trigger=
-                {<button className={popUpStyle.logIn}> Log In </button>} 
-                modal nested>
-                {
-                    close => (
-                        <div className={popUpStyle.modal}>
-                            <div className={popUpStyle.sign}>
-                                Log into account
+        <div className={popUpStyle.flexContainer}>
+            
+                <Popup trigger=
+                    {<button className={popUpStyle.logIn}> Log In </button>} 
+                    modal nested>
+                    {
+                        close => (
+                            <div className={popUpStyle.modal}>
+                                <Image src={logo} className={popUpStyle.logo}></Image>
+                                <div className={popUpStyle.sign}>
+                                    
+                                    Log into account
+                                </div>
+                                <div>
+                                    <button className={popUpStyle.logInAcc} onClick=
+                                        {() => close()}>
+                                            log in
+                                    </button>
+                                </div>
                             </div>
-                            <div>
-                                <button className={popUpStyle.logInAcc} onClick=
-                                    {() => close()}>
-                                        log in
-                                </button>
-                            </div>
-                        </div>
-                    )
-                }
-            </Popup>
+                        )
+                    }
+                </Popup>
+           
         </div>
 
         </div>
