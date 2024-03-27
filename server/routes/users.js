@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user'); // Importing the User model
+const User = require('../models/user.js'); // Importing the User model
+const multer = require('multer'); 
+const s3 = require('../s3'); // Importing the S3 module
+
+const upload = multer();
 
 /* GET users listing. */
 router.get('/users', async (req, res, next) => {
@@ -42,11 +46,23 @@ router.get('/user/:id', async (req, res) => {
 router.post('/user/create', async(req,res) => {
   try {
     const {username, email, password, firstName, lastName, bio} = req.body;
+
+    console.log(req.body)
+
+    profilePicURL = null;
+
+        if (req.file) {
+            // Upload image to S3 and get image URL
+            profilePicURL = await s3.uploadToS3(req.file);
+          }
+
+    console.log(profilePicURL)
   
     if (!username || !email || !password || !firstName || !lastName) {
       return res.status(400).send('Fill out all fields')
     };
 
+    // Check if user already exists
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
       return res.status(409).send('User already exists');
@@ -58,7 +74,8 @@ router.post('/user/create', async(req,res) => {
       password: password,
       firstName: firstName,
       lastName: lastName,
-      bio: bio
+      bio: bio,
+      profilePicURL: profilePicURL
     }
 
     const newUser = await User.create(user);
@@ -80,45 +97,6 @@ router.post('/user/create', async(req,res) => {
 })
 
 //Delete an user
-router.delete('/user/delete/:id', async(req, res)=>{
-  try {
-    const userId = req.params.id;
-    const deletedUser = await User.findByIdAndDelete(userId);
-    if(!deletedUser){
-      return res.status(404).send({message: 'User not found'});//Error handling
-    }
-    res.json({ message: 'User deleted successfully', deletedUser });
-  } catch (error) {
-    console.log(error)
-    res.status(500).send({message: 'Internal server error'});//Error handling
-  }
-});
-
-//Update an user with new username, email, or password
-router.put('/user/update/:id', async(req, res)=>{
-  try {
-    const userId = req.params.id;
-    const updateFields = req.body; //Array of specific field(s) in user
-
-    let user = await User.findById(userId);
-
-    if(!user){
-      return res.status(404).send({message: 'User not found'});//Error handling
-  }
-    for (let field in updateFields){
-      user[field] = updateFields[field]; //Update specific field
-    }
-
-    user = await user.save() //Save updated user in database
-    res.json({ message: 'User updated successfully', updatedUser });
-
-  } catch (error) {//Error handling
-    console.log(error)
-    res.status(500).send({message: 'Internal server error'});
-  }
-});
-
-//Delete an user
 router.delete('/:id', async(req, res)=>{
   try {
     const userId = req.params.id;
@@ -129,7 +107,7 @@ router.delete('/:id', async(req, res)=>{
     res.json({ message: 'User deleted successfully', deletedUser });
   } catch (error) {
     console.log(error)
-    res.status(500).send({message: 'Internal server error'});//Error handling
+    res.status(500).send({message: error.message});//Error handling
   }
 });
 
@@ -149,11 +127,11 @@ router.put('/:id', async(req, res)=>{
     }
 
     user = await user.save() //Save updated user in database
-    res.json({ message: 'User updated successfully', updatedUser });
+    res.json({ message: 'User updated successfully', user });
 
   } catch (error) {//Error handling
     console.log(error)
-    res.status(500).send({message: 'Internal server error'});
+    res.status(500).send({message: error.message});
   }
 });
 

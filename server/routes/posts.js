@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/post'); // Importing the User model
+const multer = require('multer'); 
+const s3 = require('../s3'); // Importing the S3 module
+
+const upload = multer();
+
 
 // Get all posts
 router.get('/posts', async (req, res) => {
@@ -43,18 +48,23 @@ router.get('/post/:id', async (req, res) => {
 });
 
 // Create a post
-router.post('/post/create', async (req, res) => {
-    const { userId, description } = req.body;
+router.post('/post/create', upload.single('image'), async (req, res) => {
+    const {userId, description} = req.body;
 
     if (!userId || !description) {
         return res.status(400).json({message: 'Fill out all fields'});
     }
 
     try {
+        imageURL = null;
 
+        if (req.file) {
+            // Upload image to S3 and get image URL
+            imageUrl = await s3.uploadToS3(req.file);
+          }
         //const newPost = new Post({ userId, description });
         // Creating the post
-        const post = { userId, description }; 
+        const post = {userId, description, imageURL}; 
         const savedPost = await Post.create(post); 
 
         res.status(201).json(createdPost);
@@ -64,6 +74,7 @@ router.post('/post/create', async (req, res) => {
             userId: savedPost.userId,
             title: savedPost.title,
             description: savedPost.description,
+            imageURL: savedPost.imageURL,
             createdAt: savedPost.createdAt,
             updatedAt: savedPost.updatedAt
           };
