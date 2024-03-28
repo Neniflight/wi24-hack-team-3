@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user'); // Importing the User model
+const {User} = require('../models/user'); // Importing the User model
 
 /* GET users listing. */
-router.get('/users', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   // const user = {
   //   name: 'ACM Hack',
   //   email: 'hack@acmucsd.org'
@@ -16,12 +16,12 @@ router.get('/users', async (req, res, next) => {
   } catch (error) {
     console.error(error);
 
-    res.status(500).send({ message:error.message });
+    res.status(500).send({ message: "No users found" });
   }
 });
 
 // Get a specific user with id
-router.get('/user/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const userId = req.params.id;
     const user = await User.findById(userId);
@@ -39,7 +39,7 @@ router.get('/user/:id', async (req, res) => {
 });
 
 //Create a user
-router.post('/user/create', async(req,res) => {
+router.post('/', async(req,res) => {
   try {
     const {username, email, password, firstName, lastName, bio} = req.body;
   
@@ -80,7 +80,7 @@ router.post('/user/create', async(req,res) => {
 })
 
 //Delete an user
-router.delete('/user/delete/:id', async(req, res)=>{
+router.delete('/:id', async(req, res)=>{
   try {
     const userId = req.params.id;
     const deletedUser = await User.findByIdAndDelete(userId);
@@ -95,7 +95,7 @@ router.delete('/user/delete/:id', async(req, res)=>{
 });
 
 //Update an user with new username, email, or password
-router.put('/user/update/:id', async(req, res)=>{
+router.put('/:id', async(req, res)=>{
   try {
     const userId = req.params.id;
     const updateFields = req.body; //Array of specific field(s) in user
