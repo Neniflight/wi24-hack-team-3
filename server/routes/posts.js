@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
         const { userId, description } = req.body;
 
         if (!userId || !description) {
-            return res.status(400).send({message: 'Fill out all fields'});
+            return res.status(400).send('Fill out all fields');
         };
 
         const post = { 
