@@ -1,0 +1,30 @@
+.button {
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 30px;
+    cursor: pointer;
+    display: flex;
+    width: 700px;
+    height: 60px;
+    padding: 8px 0px 9px 0px;
+    justify-content: center;
+    align-items: center;    
+  }
+
+  .post{
+    background-color: #14452F;
+  }
+  
+  .addPhoto{
+    background-color: #678F7E;
+    padding-bottom: 10px;
+  }
+
+  .button.signUp:hover {
+    background-color: #255630;
+  }
+
+  .button.logIn:hover{
+    background-color: #789F8F;
+  }
