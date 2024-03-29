@@ -12,12 +12,13 @@
     align-items: center;    
   }
 
-  .signUp{
+  .post{
     background-color: #14452F;
   }
   
-  .logIn{
+  .addPhoto{
     background-color: #678F7E;
+    padding-bottom: 10px;
   }
 
   .button.signUp:hover {

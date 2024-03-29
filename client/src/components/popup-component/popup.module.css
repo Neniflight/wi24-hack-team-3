@@ -1,0 +1,119 @@
+.modal{
+    background-color: #FFFDF2;
+    padding: 200px;
+    width: 700px;
+    height: 800px;
+    border-radius: 20px;
+    border-color: #14452F;
+    /* justify-content: center; */
+    padding-left: 50px;
+}
+
+.sign{
+    margin: auto;
+    background: white;
+    width: 600px;
+    height: 400px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px; 
+}
+
+
+.signup{
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 30px;
+    cursor: pointer;
+    display: flex;
+    width: 700px;
+    height: 60px;
+    padding: 8px 0px 9px 0px;
+    justify-content: center;
+    align-items: center;
+    background-color: #14452F;
+}
+
+.signup:hover {
+    background-color: #255630;
+} 
+
+.logIn{
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 30px;
+    cursor: pointer;
+    display: flex;
+    width: 700px;
+    height: 60px;
+    padding: 8px 0px 9px 0px;
+    justify-content: center;
+    align-items: center;
+    background-color: #678F7E;
+}
+
+.logIn:hover{
+    background-color: #789F8F;
+}
+
+.createAcc{
+    color: white;
+    border: none;
+    border-radius: 100px;
+    border: 2px solid #14452F;
+    font-size: 30px;
+    cursor: pointer;
+    display: flex;
+    width: 600px;
+    height: 60px;
+    padding: 8px 0px 9px 0px;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFFDF2;
+    color: #14452F;
+}
+
+.logInAcc{
+    color: white;
+    border: none;
+    border-radius: 100px;
+    border: 2px solid #14452F;
+    font-size: 30px;
+    cursor: pointer;
+    display: flex;
+    width: 600px;
+    height: 60px;
+    padding: 8px 0px 9px 0px;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFFDF2;
+    color: #14452F;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.flexContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flexItem {
+    flex: 1; /* This allows the flex items to grow and shrink based on available space */
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+}
+
+.logo{
+    filter: invert(19%) sepia(19%) saturate(1428%) hue-rotate(101deg) brightness(100%) contrast(92%);
+    width: 50px;
+    height: 65px;
+    justify-content: center;
+    padding-bottom: 20px;
+    flex-shrink: 0;
+}
