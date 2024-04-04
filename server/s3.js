@@ -19,6 +19,7 @@ const s3 = new AWS.S3({
 // Function to upload image to S3
 const uploadToS3 = async (file) => {
   const params = {
+    ACL: 'public-read',
     Bucket: process.env.BUCKET_NAME,
     Key: file.originalname,
     Body: file.buffer,
