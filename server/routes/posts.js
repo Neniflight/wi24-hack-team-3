@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/post'); // Importing the User model
 const multer = require('multer'); 
-const s3 = require('../s3'); // Importing the S3 module
+const {uploadToS3} = require('../s3'); // Importing the S3 module
 
 const upload = multer();
 
@@ -60,8 +60,6 @@ router.post('/:userId/create', async (req, res) => {
         // Creating the post
         const post = {userId, description}; 
         const savedPost = await Post.create(post); 
-
-        res.status(201).json(createdPost);
         
         const postResponse = {
             _id: savedPost._id,
@@ -79,15 +77,15 @@ router.post('/:userId/create', async (req, res) => {
     }
 });
 
-router.put('/:userId/image', upload.single('image'), async(req, res)=>{
-    const userId = req.params._id
-    const potentialUser = await Post.findById(userId);
-    if (!potentialUser) {
-      return res.status(404).json({ error: "User does not exist", id });
+router.put('/:id/image', upload.single('image'), async(req, res)=>{
+    const id = req.params.id
+    const potentialPost = await Post.findById(id);
+    if (!potentialPost) {
+      return res.status(404).json({ error: "Post does not exist", id });
     }
-    const postImage = await uploadToS3(req.file, userId);
+    const postImage = await uploadToS3(req.file, id);
     const post = await Post.findByIdAndUpdate(
-      userId,
+      id,
       { imageURL: postImage },
       { new: true }
     );
