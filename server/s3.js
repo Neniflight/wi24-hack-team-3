@@ -6,7 +6,15 @@ AWS.config.update({
   secretAccessKeyId: process.env.SECRET_ACCESS_KEY,
 });
 
-const s3 = new AWS.S3();
+const s3 = new AWS.S3({
+  apiVersion: '2006-03-01',
+  region: process.env.REGION,
+  credentials: {
+      accessKeyId: process.env.ACCESS_KEY,
+      secretAccessKey: process.env.SECRET_ACCESS_KEY
+  },
+});
+
 
 // Function to upload image to S3
 const uploadToS3 = async (file) => {
@@ -16,8 +24,7 @@ const uploadToS3 = async (file) => {
     Body: file.buffer,
   };
 
-  const data = await s3.upload(params).promise();
-  return data.Location;
+  return s3.upload(params).promise().then((data) => data.Location);
 };
 
 module.exports = { uploadToS3 };

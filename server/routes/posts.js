@@ -18,7 +18,7 @@ router.get('/posts', async (req, res) => {
 });
 
 // Get all posts from a specific user
-router.get('/posts/user/:userId', async (req, res) => {
+router.get('/:userId', async (req, res) => {
     const userId = req.params.userId;
 
     try {
@@ -35,7 +35,7 @@ router.get('/posts/user/:userId', async (req, res) => {
 });
 
 // Get a specific post with id
-router.get('/post/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
         if (!post) {
@@ -48,7 +48,7 @@ router.get('/post/:id', async (req, res) => {
 });
 
 // Create a post
-router.post('/post/create', upload.single('image'), async (req, res) => {
+router.post('/:userId/create', async (req, res) => {
     const {userId, description} = req.body;
 
     if (!userId || !description) {
@@ -56,15 +56,9 @@ router.post('/post/create', upload.single('image'), async (req, res) => {
     }
 
     try {
-        imageURL = null;
-
-        if (req.file) {
-            // Upload image to S3 and get image URL
-            imageUrl = await s3.uploadToS3(req.file);
-          }
         //const newPost = new Post({ userId, description });
         // Creating the post
-        const post = {userId, description, imageURL}; 
+        const post = {userId, description}; 
         const savedPost = await Post.create(post); 
 
         res.status(201).json(createdPost);
@@ -74,7 +68,6 @@ router.post('/post/create', upload.single('image'), async (req, res) => {
             userId: savedPost.userId,
             title: savedPost.title,
             description: savedPost.description,
-            imageURL: savedPost.imageURL,
             createdAt: savedPost.createdAt,
             updatedAt: savedPost.updatedAt
           };
@@ -85,5 +78,20 @@ router.post('/post/create', upload.single('image'), async (req, res) => {
         res.status(500).json({message: error.message});
     }
 });
+
+router.put('/:userId/image', upload.single('image'), async(req, res)=>{
+    const userId = req.params._id
+    const potentialUser = await Post.findById(userId);
+    if (!potentialUser) {
+      return res.status(404).json({ error: "User does not exist", id });
+    }
+    const postImage = await uploadToS3(req.file, userId);
+    const post = await Post.findByIdAndUpdate(
+      userId,
+      { imageURL: postImage },
+      { new: true }
+    );
+    return res.status(200).json({ post });
+  });
 
 module.exports = router;

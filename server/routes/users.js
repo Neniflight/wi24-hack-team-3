@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user.js'); // Importing the User model
 const multer = require('multer'); 
-const s3 = require('../s3'); // Importing the S3 module
+const {uploadToS3} = require('../s3'); // Importing the S3 module
 
 const upload = multer();
 
@@ -25,7 +25,7 @@ router.get('/users', async (req, res, next) => {
 });
 
 // Get a specific user with id
-router.get('/user/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const userId = req.params.id;
     const user = await User.findById(userId);
@@ -43,20 +43,9 @@ router.get('/user/:id', async (req, res) => {
 });
 
 //Create a user
-router.post('/user/create', async(req,res) => {
+router.post('/', async(req,res) => {
   try {
     const {username, email, password, firstName, lastName, bio} = req.body;
-
-    console.log(req.body)
-
-    profilePicURL = null;
-
-        if (req.file) {
-            // Upload image to S3 and get image URL
-            profilePicURL = await s3.uploadToS3(req.file);
-          }
-
-    console.log(profilePicURL)
   
     if (!username || !email || !password || !firstName || !lastName) {
       return res.status(400).send('Fill out all fields')
@@ -75,7 +64,6 @@ router.post('/user/create', async(req,res) => {
       firstName: firstName,
       lastName: lastName,
       bio: bio,
-      profilePicURL: profilePicURL
     }
 
     const newUser = await User.create(user);
@@ -133,6 +121,24 @@ router.put('/:id', async(req, res)=>{
     console.log(error)
     res.status(500).send({message: error.message});
   }
+});
+
+//Image Upload Put Route
+
+router.put('/:id/image', upload.single('image'), async(req, res)=>{
+  const id = req.params.id
+  const potentialUser = await User.findById(id);
+  if (!potentialUser) {
+    return res.status(404).json({ error: "User does not exist", id });
+  }
+  console.log(id)
+  const profilePic = await uploadToS3(req.file, id);
+  const user = await User.findByIdAndUpdate(
+    id,
+    { profilePicURL: profilePic },
+    { new: true }
+  );
+  return res.status(200).json({ user });
 });
 
 module.exports = router;
