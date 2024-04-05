@@ -34,37 +34,17 @@ export default function Home() {
                                 create an account
                                 <p className={popUpStyle.switch}>already have an account? log in</p>
                             </div>
-                            <div className={popUpStyle.inputsContainer}>
-                                {/* <div className={popUpStyle.nameContainer}>  */}
                                     <div className={popUpStyle.input}>
                                     <input type="firstName" id={popUpStyle.field} placeholder="First Name"/>
-                                    </div>
-
-                                    <div className={popUpStyle.input}>
                                     <input type="lastName" id={popUpStyle.field} placeholder="Last Name"/>
-                                    </div>
-                                {/* </div> */}
-
-                                <div className={popUpStyle.input}>
                                     <input type="email" id={popUpStyle.field} placeholder="Email"/>
-                                </div>
-
-                                <div className={popUpStyle.input}>
                                     <input type="phoneNumber" id={popUpStyle.field} placeholder="Phone Number"/>
-                                </div>
-
-                                <div className={popUpStyle.input}>
                                     <input type="password" id={popUpStyle.field} placeholder="Password"/>
-                                </div>
-
-                                <div className={popUpStyle.input}>
                                     <input type="confirmPassword" id={popUpStyle.field} placeholder="Confirm Password"/>
-                                </div>
                             </div>
                             <div className="submit">
                                 <Button className={popUpStyle.submit} >sign up</Button>
                             </div>
-                            
                         </div>
                     )
                 }
@@ -89,15 +69,10 @@ export default function Home() {
                                 log in
                                 <p className={popUpStyle.switch}>don't have an account? create an account</p>
                             </div>
-                            <div className={popUpStyle.inputs}>
                                 <div className={popUpStyle.input}>
                                     <input type="email" id={popUpStyle.field} placeholder="Email"/>
-                                </div>
-
-                                <div className={popUpStyle.input}>
                                     <input type="password" id={popUpStyle.field} placeholder="Password"/>
                                 </div>
-                            </div>
                             <div className="submit">
                                 <Button className={popUpStyle.submit} >log in</Button>
                             </div>
