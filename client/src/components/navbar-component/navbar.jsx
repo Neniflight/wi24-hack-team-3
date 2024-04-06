@@ -4,7 +4,7 @@ import styles from './navbar.module.css';
 import Image from 'next/image';
 
 import cal from 'public/images/cal.png';
-import hand from 'public/images/logo.png';
+import logo from 'public/images/logo.png';
 
 const NavBar = () => {
     return (
@@ -27,7 +27,7 @@ const NavBar = () => {
                 <div>
                     <a href = "/home">
                         <div>
-                            <Image src={hand} className={styles.logo}></Image>
+                            <Image src={logo} className={styles.logo}></Image>
                             {/* <img src={'/images/logo.png'} className={styles.logo}></img> */}
                         </div>
                     </a>
