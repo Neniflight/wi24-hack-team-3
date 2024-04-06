@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../models/post'); // Importing the User model
+const { Post } = require('../models/post');
+const authenticateToken = require('../middleware/tokenAuth'); 
+
 
 // Get all posts
 router.get('/posts', async (req, res) => {
@@ -13,7 +15,7 @@ router.get('/posts', async (req, res) => {
 });
 
 // Get all posts from a specific user
-router.get('/posts/user/:userId', async (req, res) => {
+router.get('/posts/user/:userId', authenticateToken, async (req, res) => {
     const userId = req.params.userId;
 
     try {
@@ -30,7 +32,7 @@ router.get('/posts/user/:userId', async (req, res) => {
 });
 
 // Get a specific post with id
-router.get('/post/:id', async (req, res) => {
+router.get('/post/:id', authenticateToken, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
         if (!post) {
@@ -43,35 +45,33 @@ router.get('/post/:id', async (req, res) => {
 });
 
 // Create a post
-router.post('/post/create', async (req, res) => {
-    const { userId, description } = req.body;
-
-    if (!userId || !description) {
-        return res.status(400).json({message: 'Fill out all fields'});
-    }
-
+router.post('/post/create', authenticateToken, async (req, res) => {
     try {
+        const { userId, description } = req.body;
 
-        //const newPost = new Post({ userId, description });
-        // Creating the post
-        const post = { userId, description }; 
+        if (!userId || !description) {
+            return res.status(400).send('UserId or description not found');
+        };
+
+        const post = { 
+            userId: userId, 
+            description: description 
+        }
+
         const savedPost = await Post.create(post); 
-
-        res.status(201).json(createdPost);
         
         const postResponse = {
             _id: savedPost._id,
             userId: savedPost.userId,
-            title: savedPost.title,
             description: savedPost.description,
             createdAt: savedPost.createdAt,
             updatedAt: savedPost.updatedAt
-          };
+        };
 
         res.status(201).json(postResponse); 
 
     } catch (error) {
-        res.status(500).json({message: error.message});
+        res.status(500).send({message: error.message});
     }
 });
 

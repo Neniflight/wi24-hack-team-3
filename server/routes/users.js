@@ -3,6 +3,8 @@ const router = express.Router();
 const { User } = require('../models/user'); // Importing the User model
 const bcrypt = require('bcrypt');
 const saltRounds = 10; 
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 
 /* GET users listing. */
 router.get('/', async (req, res, next) => {
@@ -81,7 +83,52 @@ router.post('/', async(req,res) => {
     return res.status(500).send({message:error.message})
   }
 
-})
+});
+
+//user login request
+router.post('/login', async(req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
+    try {
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).send({ message: 'Incorrect password' });
+        }
+
+        const payload = {
+            user: {
+                id: user.id,
+                username: user.username
+            }
+        };
+
+
+
+        jwt.sign(
+            payload,
+            process.env.JWT_SECRET,  
+            { expiresIn: 3600 }, 
+            (err, token) => {
+                if (err) throw err;
+                res.status(200).json({
+                    token: token 
+                });
+            }
+        );
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
+});
 
 //Delete an user
 router.delete('/:id', async(req, res)=>{
