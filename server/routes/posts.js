@@ -5,7 +5,7 @@ const authenticateToken = require('../middleware/tokenAuth');
 
 
 // Get all posts
-router.get('/posts', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const posts = await Post.find();
         res.json(posts);
@@ -15,7 +15,7 @@ router.get('/posts', async (req, res) => {
 });
 
 // Get all posts from a specific user
-router.get('/posts/user/:userId', authenticateToken, async (req, res) => {
+router.get('/user/:userId', authenticateToken, async (req, res) => {
     const userId = req.params.userId;
 
     try {
@@ -32,7 +32,7 @@ router.get('/posts/user/:userId', authenticateToken, async (req, res) => {
 });
 
 // Get a specific post with id
-router.get('/post/:id', authenticateToken, async (req, res) => {
+router.get('/:id', authenticateToken, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
         if (!post) {
@@ -45,7 +45,7 @@ router.get('/post/:id', authenticateToken, async (req, res) => {
 });
 
 // Create a post
-router.post('/post/create', authenticateToken, async (req, res) => {
+router.post('/', authenticateToken, async (req, res) => {
     try {
         const { userId, description } = req.body;
 

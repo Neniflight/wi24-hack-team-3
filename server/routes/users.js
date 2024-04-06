@@ -8,11 +8,6 @@ const dotenv = require('dotenv');
 
 /* GET users listing. */
 router.get('/', async (req, res, next) => {
-  // const user = {
-  //   name: 'ACM Hack',
-  //   email: 'hack@acmucsd.org'
-  // }
-  // res.status(200).json({ user });
   try {
     const users = await User.find(); // fetch all users from the database
     res.status(200).json(users);
