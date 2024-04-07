@@ -19,7 +19,7 @@ export default function Home() {
             write down a happy memory and grow your garden!</p>
             <br></br>
     
-        <div className={popUpStyle.flexContainer}>
+        {/* <div className={popUpStyle.flexContainer}> */}
             <Popup trigger={<button className={popUpStyle.signup}> Sign up </button>} modal nested>
                 {
                     close => (
@@ -50,7 +50,7 @@ export default function Home() {
                     )
                 }
             </Popup>
-        </div>
+        {/* </div> */}
         <Divider text="already have an account?"/>
         <div className={popUpStyle.flexContainer}>
             <Popup trigger=
