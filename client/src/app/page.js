@@ -18,6 +18,7 @@ export default function Home() {
             <p className={styles.message}><em>cultivate</em> is designed to help make your happiness a habit. 
             write down a happy memory and grow your garden!</p>
             <br></br>
+    
         <div className={popUpStyle.flexContainer}>
             <Popup trigger={<button className={popUpStyle.signup}> Sign up </button>} modal nested>
                 {
@@ -32,7 +33,7 @@ export default function Home() {
                             <Image src={logo} className={popUpStyle.logo}></Image>
                             <div className={popUpStyle.sign}>
                                 create an account
-                                <p className={popUpStyle.switch}>already have an account? log in</p>
+                               
                             </div>
                                     <div className={popUpStyle.input}>
                                     <input type="firstName" id={popUpStyle.field} placeholder="First Name"/>
@@ -67,7 +68,7 @@ export default function Home() {
                             <Image src={logo} className={popUpStyle.logo}></Image>
                             <div className={popUpStyle.sign}>
                                 log in
-                                <p className={popUpStyle.switch}>don't have an account? create an account</p>
+                                
                             </div>
                                 <div className={popUpStyle.input}>
                                     <input type="email" id={popUpStyle.field} placeholder="Email"/>
@@ -81,6 +82,7 @@ export default function Home() {
                 }
             </Popup>
         </div>
+
         </div>
         <div className={styles.rightColumn}>
             <Image src={logo} className={styles.logo}></Image>
