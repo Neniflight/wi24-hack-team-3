@@ -6,19 +6,21 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import styles from './style.module.css'
 
+
 export default function Home() {
   const [value, onChange] = useState(new Date());
 
   return (
       <main className={styles.main} >
-
-      <div className={styles.customCalendar}>
+        <span className='font-link'>
+        <div className={styles.customCalendar}>
             <Calendar
                 calendarType='gregory'
                 onChange={onChange}
                 value={value}
             />
         </div>
+        </span>
     </main>
   )
 }
