@@ -3,7 +3,6 @@ const router = express.Router();
 const Post = require('../models/post'); // Importing the User model
 const multer = require('multer'); 
 const {uploadToS3} = require('../s3'); // Importing the S3 module
-
 const upload = multer();
 
 
@@ -18,7 +17,7 @@ router.get('/posts', async (req, res) => {
 });
 
 // Get all posts from a specific user
-router.get('/:userId', async (req, res) => {
+router.get('/user/:userId', async (req, res) => {
     const userId = req.params.userId;
 
     try {
@@ -48,7 +47,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Create a post
-router.post('/:userId/create', async (req, res) => {
+router.post('/create', async (req, res) => {
     const {userId, description} = req.body;
 
     if (!userId || !description) {
