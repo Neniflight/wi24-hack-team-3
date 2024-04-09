@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../models/post'); // Importing the User model
+const {Post} = require('../models/post'); // Importing the User model
 const multer = require('multer'); 
 const {uploadToS3} = require('../s3'); // Importing the S3 module
 const upload = multer();

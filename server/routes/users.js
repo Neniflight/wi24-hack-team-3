@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user.js'); // Importing the User model
+const {User} = require('../models/user.js'); // Importing the User model
 const multer = require('multer'); 
 const {uploadToS3} = require('../s3'); // Importing the S3 module
 
