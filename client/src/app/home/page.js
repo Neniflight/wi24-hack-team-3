@@ -1,18 +1,41 @@
-import Image from 'next/image'
+'use client';
+
+import { useState } from 'react';
 import styles from './style.module.css'
-import Layout from "../layout.js"
-import logo from 'public/images/logo.png';
 import Button from '@/components/button-component/button';
 import buttonStyle from '@/components/button-component/button.module.css';
+import TextInput from '@/components/submission-component/submission';
+import React from 'react';
 
 export default function Home() {
-  return (
-      <main className={styles.main} >
-        <h1 className={styles.date}>day, date</h1>
-        <h2 className={styles.message}>what are you grateful for today?</h2>
-        <Button className={buttonStyle.addPhoto}>Add Photo</Button>
-        <br/>
-        <Button className={buttonStyle.post}>Post!</Button>
-      </main>
-  )
+    const [inputValue, setInputValue] = useState('');
+
+    /* Real time date udpating */
+    const currentDate = new Date();
+    const day = currentDate.getDate();
+    const dayOfWeek = currentDate.toLocaleString('default', { weekday: 'long' }).toLowerCase();
+    const month = currentDate.toLocaleString('default', { month: 'long' }).toLowerCase();
+
+    const handleInputChange = (event) => {
+        setInputValue(event.target.value);
+    };
+
+    return (
+        <main className={styles.main} >
+            <h1 className={styles.date}>{dayOfWeek}, {month} {day}</h1>
+            <div className={styles.circle}>
+
+            </div>
+            <h2 className={styles.message}>what are you grateful for today?</h2>
+            <div className={styles.textInput}>
+                {/* Text input box */}
+                <TextInput value={inputValue} onChange={handleInputChange} placeholder="Enter your text" />
+            </div>
+            
+
+            <Button className={buttonStyle.addPhoto}>Add Photo</Button>
+            <br/>
+            <Button className={buttonStyle.post}>Post!</Button>
+        </main>
+    )
 }

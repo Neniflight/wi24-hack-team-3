@@ -3,23 +3,41 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 6rem;
+    padding: 2rem;
     /* min-height: 100vh; */
   }
+
+.h1 {
+    padding-bottom: 6rem;
+}
+
+.circle {
+    height: 150px;
+    width: 150px;
+    background-color: #FFFDF2;
+    border-radius: 50%;
+}
 
 .logo{
   padding-top: 0px;
 }
 
 .date{
-  padding-bottom: 5px;
+  padding-bottom: 2rem;
   color: #FFFDF2;
 }
 
 .message{
-  color: #FFFDF2;
+    padding-top: 1rem;
+    color: #FFFDF2;
+    width: 26%;
 }
 
+.textInput {
+    width: 26%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
 
   
  

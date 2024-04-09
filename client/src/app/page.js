@@ -5,10 +5,7 @@ import React from 'react';
 import logo from 'public/images/logo.png';
 import Button from '@/components/button-component/button';
 import buttonStyle from '@/components/button-component/button.module.css';
-import popUpStyle from '@/components/popup-component/popup.module.css';
 import Divider from '@/components/divider-component/divider';
-import Popup from 'reactjs-popup';
-import { useState } from "react";
 
 export default function Home() {
   return (
