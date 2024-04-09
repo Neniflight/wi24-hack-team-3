@@ -26,7 +26,10 @@ const UserSchema = mongoose.Schema(
             required: true,
         },
         profilePicURL: {
-            type: String
+            type: String,
+        },
+        profilePicURL: {
+            type: String,
         }
     }
 );
@@ -34,4 +37,4 @@ const UserSchema = mongoose.Schema(
 const User = mongoose.model('User', UserSchema); 
 
 
-module.exports = User;
+module.exports = {User};

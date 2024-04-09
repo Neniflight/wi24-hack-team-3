@@ -7,12 +7,7 @@ const {uploadToS3} = require('../s3'); // Importing the S3 module
 const upload = multer();
 
 /* GET users listing. */
-router.get('/users', async (req, res, next) => {
-  // const user = {
-  //   name: 'ACM Hack',
-  //   email: 'hack@acmucsd.org'
-  // }
-  // res.status(200).json({ user });
+router.get('/', async (req, res, next) => {
   try {
     const users = await User.find(); // fetch all users from the database
     res.status(200).json(users);
@@ -20,7 +15,7 @@ router.get('/users', async (req, res, next) => {
   } catch (error) {
     console.error(error);
 
-    res.status(500).send({ message:error.message });
+    res.status(500).send({ message: "No users found" });
   }
 });
 

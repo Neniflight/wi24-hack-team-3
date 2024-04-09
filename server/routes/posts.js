@@ -7,7 +7,7 @@ const upload = multer();
 
 
 // Get all posts
-router.get('/posts', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const posts = await Post.find();
         res.json(posts);
@@ -50,6 +50,15 @@ router.get('/:id', async (req, res) => {
 router.post('/create', async (req, res) => {
     const {userId, description} = req.body;
 
+        if (!userId || !description) {
+            return res.status(400).send('UserId or description not found');
+        };
+
+        const post = { 
+            userId: userId, 
+            description: description 
+        }
+
     if (!userId || !description) {
         return res.status(400).json({message: 'Fill out all fields'});
     }
@@ -63,11 +72,10 @@ router.post('/create', async (req, res) => {
         const postResponse = {
             _id: savedPost._id,
             userId: savedPost.userId,
-            title: savedPost.title,
             description: savedPost.description,
             createdAt: savedPost.createdAt,
             updatedAt: savedPost.updatedAt
-          };
+        };
 
         res.status(201).json(postResponse); 
 
