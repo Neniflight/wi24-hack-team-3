@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const {Post} = require('../models/post'); // Importing the Post model
+const {Post} = require('../models/post'); // Importing the User model
+const multer = require('multer'); 
+const {uploadToS3} = require('../s3'); // Importing the S3 module
+const upload = multer();
+
 
 // Get all posts
 router.get('/', async (req, res) => {
@@ -43,9 +47,8 @@ router.get('/:id', async (req, res) => {
 });
 
 // Create a post
-router.post('/', async (req, res) => {
-    try {
-        const { userId, description } = req.body;
+router.post('/create', async (req, res) => {
+    const {userId, description} = req.body;
 
         if (!userId || !description) {
             return res.status(400).send('UserId or description not found');
@@ -56,6 +59,14 @@ router.post('/', async (req, res) => {
             description: description 
         }
 
+    if (!userId || !description) {
+        return res.status(400).json({message: 'Fill out all fields'});
+    }
+
+    try {
+        //const newPost = new Post({ userId, description });
+        // Creating the post
+        const post = {userId, description}; 
         const savedPost = await Post.create(post); 
         
         const postResponse = {
@@ -69,24 +80,23 @@ router.post('/', async (req, res) => {
         res.status(201).json(postResponse); 
 
     } catch (error) {
-        res.status(500).send({message: error.message});
+        res.status(500).json({message: error.message});
     }
-
 });
 
-// Delete a post
-router.delete('/:id', async(req, res)=>{
-    try {
-        const id = req.params.id;
-        const deletedPost = await Post.findByIdAndDelete(id);
-        if(!deletedPost){
-            return res.status(404).send({message: 'Post not found'});
-        }
-        res.json({message: 'Post deleted successfully', deletedPost});
-    } catch (error){
-        res.status(500).send({message: 'Failed to delete'})
+router.put('/:id/image', upload.single('image'), async(req, res)=>{
+    const id = req.params.id
+    const potentialPost = await Post.findById(id);
+    if (!potentialPost) {
+      return res.status(404).json({ error: "Post does not exist", id });
     }
-
-})
+    const postImage = await uploadToS3(req.file, id);
+    const post = await Post.findByIdAndUpdate(
+      id,
+      { imageURL: postImage },
+      { new: true }
+    );
+    return res.status(200).json({ post });
+  });
 
 module.exports = router;
