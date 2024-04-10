@@ -16,7 +16,7 @@ const API =  {
         return axios.delete(`${serverURL}/users/${id}`);
     },
     updateUser: function(id, payload) {
-            return axios.patch(`${serverURL}/users/${id}`, payload);
+            return axios.put(`${serverURL}/users/${id}`, payload);
     },
     getPosts: function() {
         return axios.get(`${serverURL}/posts/`);
@@ -30,7 +30,12 @@ const API =  {
     deletePost: function(id) {
         return axios.delete(`${serverURL}/posts/${id}`);
     },
-
+    uploadUserImage: function(file, id) {
+        return axios.put(`${serverURL}/users/${id}/image`, file);
+    },
+    uploadPostImage: function(file, id) {
+        return axios.put(`${serverURL}/users/${id}/image`, file);
+    },
 
 }
 
