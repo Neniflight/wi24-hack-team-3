@@ -27,6 +27,9 @@ const UserSchema = mongoose.Schema(
         },
         profilePicURL: {
             type: String,
+        },
+        profilePicURL: {
+            type: String,
         }
     }
 );
