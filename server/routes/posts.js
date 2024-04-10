@@ -84,6 +84,20 @@ router.post('/create', async (req, res) => {
     }
 });
 
+// Delete a post
+router.delete('/:id', async(req, res)=>{
+    try {
+        const id = req.params.id;
+        const deletedPost = await Post.findByIdAndDelete(id);
+        if(!deletedPost){
+            return res.status(404).send({message: 'Post not found'});
+        }
+        res.json({message: 'Post deleted successfully', deletedPost});
+    } catch (error){
+        res.status(500).send({message: 'Failed to delete'})
+    }
+});
+
 router.put('/:id/image', upload.single('image'), async(req, res)=>{
     const id = req.params.id
     const potentialPost = await Post.findById(id);
