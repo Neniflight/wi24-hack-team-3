@@ -12,19 +12,18 @@
 }
 
 .circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 150px;
     width: 150px;
     background-color: #FFFDF2;
     border-radius: 50%;
 }
 
-.logo{
-  padding-top: 0px;
-}
-
 .date{
-  padding-bottom: 2rem;
-  color: #FFFDF2;
+    padding-bottom: 2rem;
+    color: #FFFDF2;
 }
 
 .message{
