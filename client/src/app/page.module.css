@@ -1,5 +1,13 @@
 .main {
     display: flex;
+    flex-direction: row;
+    padding: 4rem;
+    padding-top: 2rem;
+    /* background-color: red; */
+}
+
+.leftColumn {
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
