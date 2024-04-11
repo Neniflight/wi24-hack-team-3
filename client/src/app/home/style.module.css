@@ -26,6 +26,7 @@
 }
 
 .rightContent {
+    padding: 10px;
     width: 50vw;
     display: flex;
     align-items: center;

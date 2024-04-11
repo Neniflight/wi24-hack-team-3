@@ -8,6 +8,7 @@ import buttonStyle from '@/components/button-component/button.module.css';
 import popUpStyle from '@/components/popup-component/popup.module.css';
 import Divider from '@/components/divider-component/divider';
 import Popup from 'reactjs-popup';
+import Link from 'next/link';
 import { useState } from "react";
 
 export default function Home() {
@@ -43,9 +44,9 @@ export default function Home() {
                                     <input type="password" id={popUpStyle.field} placeholder="Password"/>
                                     <input type="confirmPassword" id={popUpStyle.field} placeholder="Confirm Password"/>
                             </div>
-                            <div className="submit">
-                                <Button className={popUpStyle.submit} >sign up</Button>
-                            </div>
+                            <Link href="/home">
+                                <Button className={popUpStyle.submit}>Sign Up</Button>
+                            </Link>
                         </div>
                     )
                 }
@@ -75,8 +76,12 @@ export default function Home() {
                                     <input type="password" id={popUpStyle.field} placeholder="Password"/>
                                 </div>
                             <div className="submit">
-                                <Button className={popUpStyle.submit} >log in</Button>
+                                
                             </div>
+
+                            <Link href='/home'>
+                                <Button className={popUpStyle.submit} >log in</Button>
+                            </Link>
                         </div>
                     )
                 }
