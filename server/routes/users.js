@@ -1,14 +1,83 @@
 const express = require('express');
 const router = express.Router();
+const {User} = require('../models/user.js'); // Importing the User model
+const multer = require('multer'); 
+const {uploadToS3} = require('../s3'); // Importing the S3 module
+
+const upload = multer();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  const user = {
-    name: 'ACM Hack',
-    email: 'hack@acmucsd.org'
+router.get('/', async (req, res, next) => {
+  try {
+    const users = await User.find(); // fetch all users from the database
+    res.status(200).json(users);
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).send({ message: "No users found" });
   }
-  res.status(200).json({ user });
 });
+
+// Get a specific user with id
+router.get('/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+
+    res.status(200).json(user);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message:error.message });
+  }
+});
+
+//Create a user
+router.post('/', async(req,res) => {
+  try {
+    const {username, email, password, firstName, lastName, bio} = req.body;
+  
+    if (!username || !email || !password || !firstName || !lastName) {
+      return res.status(400).send('Fill out all fields')
+    };
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email: email });
+    if (existingUser) {
+      return res.status(409).send('User already exists');
+    }
+
+    const user = {
+      username: username,
+      email: email,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+      bio: bio,
+    }
+
+    const newUser = await User.create(user);
+
+    const userResponse = {
+      _id: newUser._id,
+      username: newUser.username,
+      email: newUser.email,
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      bio: newUser.bio
+    };
+    res.status(201).json(userResponse);
+
+  } catch (error) {
+    return res.status(500).send({message:error.message})
+  }
+
+})
 
 //Delete an user
 router.delete('/:id', async(req, res)=>{
@@ -21,7 +90,7 @@ router.delete('/:id', async(req, res)=>{
     res.json({ message: 'User deleted successfully', deletedUser });
   } catch (error) {
     console.log(error)
-    res.status(500).send({message: 'Internal server error'});//Error handling
+    res.status(500).send({message: error.message});//Error handling
   }
 });
 
@@ -41,12 +110,31 @@ router.put('/:id', async(req, res)=>{
     }
 
     user = await user.save() //Save updated user in database
-    res.json({ message: 'User updated successfully', updatedUser });
+    res.json({ message: 'User updated successfully', user });
 
   } catch (error) {//Error handling
     console.log(error)
-    res.status(500).send({message: 'Internal server error'});
+    res.status(500).send({message: error.message});
   }
 });
 
+//Image Upload Put Route
+
+router.put('/:id/image', upload.single('image'), async(req, res)=>{
+  const id = req.params.id
+  const potentialUser = await User.findById(id);
+  if (!potentialUser) {
+    return res.status(404).json({ error: "User does not exist", id });
+  }
+  console.log(id)
+  const profilePic = await uploadToS3(req.file, id);
+  const user = await User.findByIdAndUpdate(
+    id,
+    { profilePicURL: profilePic },
+    { new: true }
+  );
+  return res.status(200).json({ user });
+});
+
 module.exports = router;
+
