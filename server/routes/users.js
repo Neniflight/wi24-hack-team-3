@@ -5,6 +5,10 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10; 
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const multer = require('multer'); 
+const {uploadToS3} = require('../s3'); // Importing the S3 module
+
+const upload = multer();
 
 /* GET users listing. */
 router.get('/', async (req, res, next) => {
@@ -46,6 +50,7 @@ router.post('/', async(req,res) => {
       return res.status(400).send('Fill out all fields')
     };
 
+    // Check if user already exists
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
       return res.status(409).send('User already exists');
@@ -163,7 +168,7 @@ router.post('/', async(req,res) => {
       password: password,
       firstName: firstName,
       lastName: lastName,
-      bio: bio
+      bio: bio,
     }
 
     const newUser = await User.create(user);
@@ -195,7 +200,7 @@ router.delete('/:id', async(req, res)=>{
     res.json({ message: 'User deleted successfully', deletedUser });
   } catch (error) {
     console.log(error)
-    res.status(500).send({message: 'Internal server error'});//Error handling
+    res.status(500).send({message: error.message});//Error handling
   }
 });
 
@@ -215,12 +220,30 @@ router.put('/:id', async(req, res)=>{
     }
 
     user = await user.save() //Save updated user in database
-    res.json({ message: 'User updated successfully', updatedUser });
+    res.json({ message: 'User updated successfully', user });
 
   } catch (error) {//Error handling
     console.log(error)
-    res.status(500).send({message: 'Internal server error'});
+    res.status(500).send({message: error.message});
   }
+});
+
+//Image Upload Put Route
+
+router.put('/:id/image', upload.single('image'), async(req, res)=>{
+  const id = req.params.id
+  const potentialUser = await User.findById(id);
+  if (!potentialUser) {
+    return res.status(404).json({ error: "User does not exist", id });
+  }
+  console.log(id)
+  const profilePic = await uploadToS3(req.file, id);
+  const user = await User.findByIdAndUpdate(
+    id,
+    { profilePicURL: profilePic },
+    { new: true }
+  );
+  return res.status(200).json({ user });
 });
 
 module.exports = router;
