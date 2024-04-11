@@ -1,11 +1,33 @@
 .main {
     display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.contentWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 90vw;
+    /* min-height: 100vh; */
+}
+
+.leftContent {
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 2rem;
+    width: 90vw;
     /* min-height: 100vh; */
-  }
+}
+
+.rightContent {
+
+}
 
 .h1 {
     padding-bottom: 6rem;
@@ -22,18 +44,20 @@
 }
 
 .date{
-    padding-bottom: 2rem;
+    margin-top: 10px;
     color: #FFFDF2;
+    font-size: 60px;
 }
 
 .message{
     padding-top: 1rem;
     color: #FFFDF2;
     width: 26%;
+    text-align: center;
 }
 
 .textInput {
-    width: 26%;
+    width: 30vw;
     padding-top: 1rem;
     padding-bottom: 1rem;
 }

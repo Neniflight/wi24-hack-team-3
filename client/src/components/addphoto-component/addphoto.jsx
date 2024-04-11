@@ -26,7 +26,6 @@ const AddPhoto = ({children, className}) => {
           </label>
           )}
           {file && <img src={file} className={addPhotoStyle.photo} />}
-              <img src={file} />
       </div>
   );
 }
