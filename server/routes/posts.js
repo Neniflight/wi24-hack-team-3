@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const {Post} = require('../models/post'); // Importing the User model
+const { Post } = require('../models/post');
+const authenticateToken = require('../middleware/tokenAuth'); 
 const multer = require('multer'); 
 const {uploadToS3} = require('../s3'); // Importing the S3 module
 const upload = multer();
@@ -17,7 +18,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get all posts from a specific user
-router.get('/user/:userId', async (req, res) => {
+router.get('/user/:userId', authenticateToken, async (req, res) => {
     const userId = req.params.userId;
 
     try {
@@ -34,7 +35,7 @@ router.get('/user/:userId', async (req, res) => {
 });
 
 // Get a specific post with id
-router.get('/:id', async (req, res) => {
+router.get('/:id', authenticateToken, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
         if (!post) {
@@ -47,7 +48,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Create a post
-router.post('/create', async (req, res) => {
+router.post('/', authenticateToken, async (req, res) => {
     const {userId, description} = req.body;
 
         if (!userId || !description) {
@@ -85,7 +86,7 @@ router.post('/create', async (req, res) => {
 });
 
 // Delete a post
-router.delete('/:id', async(req, res)=>{
+router.delete('/:id',authenticateToken, async(req, res)=>{
     try {
         const id = req.params.id;
         const deletedPost = await Post.findByIdAndDelete(id);
@@ -98,7 +99,8 @@ router.delete('/:id', async(req, res)=>{
     }
 });
 
-router.put('/:id/image', upload.single('image'), async(req, res)=>{
+//upload an image
+router.put('/:id/image', authenticateToken, upload.single('image'), async(req, res)=>{
     const id = req.params.id
     const potentialPost = await Post.findById(id);
     if (!potentialPost) {
