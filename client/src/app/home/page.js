@@ -4,6 +4,8 @@ import { useState } from 'react';
 import styles from './style.module.css'
 import Button from '@/components/button-component/button';
 import buttonStyle from '@/components/button-component/button.module.css';
+
+import AddPhoto from '@/components/addphoto-component/addphoto'
 import TextInput from '@/components/submission-component/submission';
 import React from 'react';
 import Image from 'next/image'
@@ -41,10 +43,8 @@ export default function Home() {
                 {/* Text input box */}
                 <TextInput value={inputValue} onChange={handleInputChange} placeholder="Enter your text" />
             </div>
-            
 
-            <Button className={buttonStyle.addPhoto}>Add Photo</Button>
-            <br/>
+            <AddPhoto/>
             <Button className={buttonStyle.post}>Post!</Button>
         </main>
     )

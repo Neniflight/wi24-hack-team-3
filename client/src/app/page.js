@@ -13,7 +13,7 @@ import { useState } from "react";
 export default function Home() {
   return (
     <main className={styles.main}>
-        <div className={styles.landing}>
+        <div className={styles.leftColumn}>
             <h1 className={styles.welcome}>welcome to <span style={{ color: '#2B7E59' }}>cultivate!</span></h1>
             <p className={styles.message}><em>cultivate</em> is designed to help make your happiness a habit. 
             write down a happy memory and grow your garden!</p>
@@ -91,7 +91,6 @@ export default function Home() {
                 <p className={styles.author}>- Voltaire, Candide</p>
             </div>
         </div>
-        
     </main>
   )
 }
