@@ -86,7 +86,7 @@ router.post('/', authenticateToken, async (req, res) => {
 });
 
 // Delete a post
-router.delete('/:id', async(req, res)=>{
+router.delete('/:id',authenticateToken, async(req, res)=>{
     try {
         const id = req.params.id;
         const deletedPost = await Post.findByIdAndDelete(id);
