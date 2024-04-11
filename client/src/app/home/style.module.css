@@ -21,12 +21,12 @@
     justify-content: space-between;
     align-items: center;
     padding: 2rem;
-    width: 90vw;
+    width: 50vw;
     /* min-height: 100vh; */
 }
 
 .rightContent {
-
+    width: 50vw;
 }
 
 .h1 {
